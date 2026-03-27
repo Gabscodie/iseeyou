@@ -12,7 +12,7 @@
  *
  * The cursor is defined a separate chakra that is white,
  * representing our brightest chakra - mindfulness 
- */ 
+ */
 class ChakraSystem {
   constructor(x, y, name, col) {
     this.name = name;
@@ -21,16 +21,16 @@ class ChakraSystem {
     this.col = col;
     this.size = 3;
     // Each chakra system has an array of particles
-    this.particles = []; 
+    this.particles = [];
   }
-  
+
   //Maintaining the particle array a size of three particles when every frame drawn 
   emit() {
     for (let i = 0; i < this.size; i++) {
       this.particles.push(new ChakraParticle(this.x, this.y, this.col));
     }
   }
-  
+
   // Updates the particle in the particles array to create the emission effect
   update() {
     // Explosion effect for each particle
@@ -42,12 +42,12 @@ class ChakraSystem {
       }
     }
   }
-  
+
   //Announce if the particles array is out of particle 
   isFinished() {
     return this.particles.length == 0;
   }
-  
+
   //Display the chakra particles 
   show() {
     // Explosion effect for each particle

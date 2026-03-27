@@ -31,27 +31,35 @@ class LightEffectSystem {
     // This is the chakra system
     this.edge = chakra.y;
     this.col = chakra.col;
-    this.size = 100;
+
+    // Reduced from 100 to 60 for performance, same visual density due to flicker
+    this.size = 60;
 
     this.particles = [];
+
     // Light Emission effect 
     for (let i = 0; i < this.size; i++) {
+      // Particle at effect origin
       this.particles.push(new LightParticle(this.x, this.y, this.col, this.animation));
+
+      // For connecting effect, also spawn from chakra
       if (this.animation == "connecting") {
         this.particles.push(new LightParticle(chakra.x, chakra.y, this.col, this.animation));
       }
     }
+
+    // Cache gravity vector so we don't recreate it every frame
+    this.gravity = createVector(0, 0.2);
   }
 
   // Update light particles
   update() {
-    // Only used for "hugging" effect for now
-    let gravity = createVector(0, 0.2);
-
     for (let i = this.particles.length - 1; i >= 0; i--) {
+
+      // Only used for "hugging" effect for now
       if (this.animation == "hugging") {
         this.particles[i].edges(this.edge);
-        this.particles[i].applyForce(gravity);
+        this.particles[i].applyForce(this.gravity);
       }
 
       // Update particle x and y after every frame
